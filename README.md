@@ -17,7 +17,7 @@ Este projeto automatiza a instalação e configuração do OCS Inventory Agent e
 ├── ansible.cfg                  # Configuração do Ansible
 ├── inventory/                   # Inventário dinâmico
 │   ├── zabbix_inventory.py      # Script para inventário do Zabbix
-│   └── zabbix_hosts.csv         # Arquivo CSV exportado do Zabbix
+│   └── hosts.csv         # Arquivo CSV exportado do Zabbix
 ├── roles/                       # Roles do Ansible
 │   └── ocs_inventory/           # Role para OCS Inventory
 ├── tasks/                       # Tarefas compartilhadas
@@ -36,7 +36,62 @@ Este projeto automatiza a instalação e configuração do OCS Inventory Agent e
 
 1. **Exportar hosts do Zabbix**:
    - Acesse o Zabbix e exporte a lista de hosts
-   - Salve como CSV no formato esperado (veja exemplo em `inventory/zabbix_hosts.csv`)
+   - Salve como CSV no formato esperado (veja exemplo em `inventory/hosts.csv`)
 
 2. **Preparar pacotes locais (opcional)**:
    - Para ambientes sem acesso à internet
+
+
+
+
+   Para rodar este projeto Ansible em uma sequência coerente, siga os comandos abaixo. Esta sequência garante que tudo seja executado de forma organizada, desde a preparação do ambiente até a instalação do OCS Inventory Agent:
+
+Clonar repositório
+
+git clone https://github.com/JuniorArruda/ocsinventory-ansible-hml.git
+
+Atualize o csv com inventário
+
+inventory/hosts.csv
+
+# Testar o inventário
+./inventory/zabbix_inventory.py --list
+
+Preparar os pacotes locais (se você optou por usar pacotes locais):
+files/packages/debian
+files/packages/redhat
+files/packages/suse
+etc...
+# Baixe e coloque os pacotes nos diretórios correspondentes
+
+ansible all -m ping
+
+Executar apenas o diagnóstico para verificar se todas as máquinas estão prontas:
+
+ansible-playbook playbook.yml --tags diagnose
+
+Executar o playbook completo para instalar e configurar o OCS Inventory Agent:
+
+ansible-playbook playbook.yml
+
+Verificar o status da instalação:
+
+ansible all -m shell -a "ps aux | grep ocsinventory-agent | grep -v grep"
+
+Se necessário, forçar a execução do inventário em todos os hosts:
+
+ansible all -m shell -a "/usr/local/bin/run-ocs-agent.sh"
+
+Em caso de problemas, executar o rollback:
+
+ansible-playbook rollback.yml
+Note que você precisará adicionar tags ao playbook principal para permitir a execução seletiva (como o --tags diagnose do passo 6). Você pode adicionar as tags necessárias ao arquivo playbook.yml da seguinte maneira:
+yamlCopy- name: Pre-flight checks
+  hosts: all
+  become: yes
+  gather_facts: no
+  tags: [always, diagnose]
+  tasks:
+    - name: Include diagnóstico
+      include_tasks: tasks/diagnostico.yml
+Esta sequência de comandos garante uma implementação controlada, permitindo que você verifique cada etapa antes de prosseguir para a próxima, reduzindo riscos durante a implementação.

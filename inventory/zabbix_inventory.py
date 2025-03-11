@@ -12,7 +12,7 @@ import argparse
 import csv
 
 # Definição do arquivo de hosts (ajuste conforme necessário)
-HOSTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'zabbix_hosts.csv')
+HOSTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hosts.csv')
 
 def parse_args():
     """Parse command line arguments"""
