@@ -1,0 +1,40 @@
+#!/bin/bash
+# Script para execução do OCS Inventory Agent
+# Gerado por Ansible em {{ ansible_date_time.date }}
+
+# Log file
+LOG="{{ ocs_agent_logfile }}"
+LOGDIR=$(dirname "$LOG")
+
+# Criar diretório de log se não existir
+if [ ! -d "$LOGDIR" ]; then
+  mkdir -p "$LOGDIR"
+  chmod 755 "$LOGDIR"
+fi
+
+# Registrar execução
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Iniciando execução do OCS Inventory Agent" >> "$LOG"
+
+# Definir proxy se necessário
+{% if http_proxy %}
+export http_proxy="{{ http_proxy }}"
+export https_proxy="{{ https_proxy }}"
+{% endif %}
+
+# Executar o agente
+if command -v ocsinventory-agent > /dev/null; then
+  ocsinventory-agent --server={{ ocs_server_url }} --logfile="$LOG" 2>&1
+  EXIT_CODE=$?
+  
+  # Registrar resultado
+  if [ $EXIT_CODE -eq 0 ]; then
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Execução concluída com sucesso" >> "$LOG"
+  else
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Falha na execução (código $EXIT_CODE)" >> "$LOG"
+  fi
+  
+  exit $EXIT_CODE
+else
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] OCS Inventory Agent não encontrado no sistema" >> "$LOG"
+  exit 1
+fi

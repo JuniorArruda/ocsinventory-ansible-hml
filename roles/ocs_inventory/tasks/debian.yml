@@ -1,0 +1,82 @@
+---
+- name: Backup dos pacotes instalados (para rollback)
+  shell: dpkg -l > {{ backup_dir }}/installed_packages.before
+  when: enable_rollback | bool
+  changed_when: false
+
+- name: Instalar dependências necessárias
+  apt:
+    name:
+      - dmidecode
+      - perl
+      - libmodule-install-perl
+      - libxml-simple-perl
+      - libcompress-zlib-perl
+      - libnet-ip-perl
+      - libwww-perl
+      - libdigest-md5-perl
+      - libdata-uuid-perl
+      - curl
+    state: present
+    update_cache: yes
+  register: deps_installed
+
+- name: Verificar se o agente OCS já está instalado
+  command: dpkg-query -W -f='${Status}' ocsinventory-agent
+  register: ocs_installed
+  failed_when: false
+  changed_when: false
+
+- block:
+    - name: Criar diretório temporário para pacotes
+      file:
+        path: /tmp/ocs_packages
+        state: directory
+        mode: '0755'
+      
+    - name: Verificar se pacote local existe
+      stat: 
+        path: "{{ local_packages_path }}/debian/ocsinventory-agent.deb"
+      register: local_pkg
+      delegate_to: localhost
+      
+    - name: Copiar pacote local se disponível
+      copy:
+        src: "{{ local_packages_path }}/debian/ocsinventory-agent.deb"
+        dest: "/tmp/ocs_packages/ocsinventory-agent.deb"
+      when: use_local_packages and local_pkg.stat.exists
+      
+    - name: Baixar pacote OCS Inventory se não houver cópia local
+      get_url:
+        url: https://github.com/OCSInventory-NG/UnixAgent/releases/download/v2.10.0/Ocsinventory-Unix-Agent-2.10.0.tar.gz
+        dest: "/tmp/ocs_packages/ocsinventory-agent.tar.gz"
+      when: not (use_local_packages and local_pkg.stat.exists)
+      
+    - name: Extrair arquivos (se baixou da internet)
+      unarchive:
+        src: "/tmp/ocs_packages/ocsinventory-agent.tar.gz"
+        dest: "/tmp/ocs_packages/"
+        remote_src: yes
+      when: not (use_local_packages and local_pkg.stat.exists)
+      
+    - name: Compilar e instalar (se baixou da internet)
+      shell: |
+        cd /tmp/ocs_packages/Ocsinventory-Unix-Agent-*
+        perl Makefile.PL
+        make
+        make install
+      args:
+        executable: /bin/bash
+      when: not (use_local_packages and local_pkg.stat.exists)
+      
+    - name: Instalar pacote (se local)
+      apt: 
+        deb: "/tmp/ocs_packages/ocsinventory-agent.deb"
+      when: use_local_packages and local_pkg.stat.exists
+  
+    - name: Obter versão do pacote instalado
+      shell: dpkg-query -W -f='${Version}' ocsinventory-agent
+      register: package_version
+      changed_when: false
+  
+  when: ocs_installed.rc != 0

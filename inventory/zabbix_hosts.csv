@@ -1,0 +1,2 @@
+host,ip,description,os
+srv-app01,10.2.100.41,Servidor glpi homolog,Ubuntu

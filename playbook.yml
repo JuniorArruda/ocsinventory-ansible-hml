@@ -1,0 +1,39 @@
+---
+- name: Pre-flight checks
+  hosts: all
+  become: yes
+  gather_facts: no
+  tags: [always, diagnose]
+  tasks:
+    - name: Include diagnóstico
+      include_tasks: tasks/diagnostico.yml
+
+- name: Instalar e configurar OCS Inventory Agent
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - ocs_inventory
+
+- name: Verificar instalação
+  hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Verificar status do agente OCS
+      shell: "ps aux | grep -v grep | grep ocsinventory-agent"
+      register: ocs_status
+      failed_when: false
+      changed_when: false
+
+    - name: Exibir status da instalação
+      debug:
+        msg: "OCS Inventory Agent instalado com sucesso em {{ inventory_hostname }}"
+      when: ocs_status.rc == 0
+
+    - name: Registrar hosts com falha
+      set_fact:
+        installation_failed: true
+      when: ocs_status.rc != 0
+      delegate_to: localhost
+      delegate_facts: true

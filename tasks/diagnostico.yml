@@ -1,0 +1,51 @@
+---
+- name: Criar diretório temporário
+  file:
+    path: /tmp/ocs_diagnostico
+    state: directory
+    mode: '0755'
+  
+- name: Verificar acesso ao servidor OCS
+  shell: curl -s --connect-timeout 10 http://10.2.100.50/ocsreports -o /dev/null -w "%{http_code}"
+  register: ocs_server_check
+  failed_when: false
+  changed_when: false
+  
+- name: Verificar acesso à internet
+  shell: ping -c 2 -W 5 8.8.8.8
+  register: internet_check
+  failed_when: false
+  changed_when: false
+  
+- name: Verificar espaço em disco
+  shell: df -h / | awk 'NR==2 {print $5}' | sed 's/%//'
+  register: disk_space
+  failed_when: false
+  changed_when: false
+  
+- name: Verificar permissões de sudo
+  shell: sudo -n true
+  register: sudo_check
+  failed_when: false
+  changed_when: false
+  
+- name: Gerar relatório de diagnóstico
+  template:
+    src: templates/diagnostico_report.j2
+    dest: /tmp/ocs_diagnostico/{{ inventory_hostname }}_report.txt
+  delegate_to: localhost
+  
+- name: Definir status de diagnóstico
+  set_fact:
+    diagnostico_ok: "{{ ocs_server_check.stdout == '200' and 
+                       sudo_check.rc == 0 and 
+                       disk_space.stdout|int < 90 }}"
+  
+- name: Exibir resultado do diagnóstico
+  debug:
+    msg: "Diagnóstico em {{ inventory_hostname }}: {{ 'OK' if diagnostico_ok else 'FALHA' }}"
+  
+- name: Falhar se diagnóstico não estiver OK
+  fail:
+    msg: "Diagnóstico falhou para {{ inventory_hostname }}. Verifique o relatório em /tmp/ocs_diagnostico/{{ inventory_hostname }}_report.txt"
+  when: not diagnostico_ok

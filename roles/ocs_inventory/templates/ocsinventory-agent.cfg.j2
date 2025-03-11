@@ -1,0 +1,31 @@
+# Arquivo de configuração do OCS Inventory Agent gerado por Ansible
+# Data: {{ ansible_date_time.date }}
+
+# Configuração do Servidor
+server = {{ ocs_server_url }}
+
+# Configuração de frequência
+delaytime = {{ ocs_agent_frequency }}
+
+# Logging
+logfile = {{ ocs_agent_logfile }}
+logger = {{ ocs_agent_loglevel }}
+
+# Outras configurações
+tag = {{ ocs_agent_tag }}
+
+# Não executa uma segunda vez se o primeiro inventory falhar
+nostop = 0
+nosoftware = 0
+
+# Diretório para scan completo
+scan-homedirs = 0
+
+# Configuração de SSL/TLS se necessário
+# ssl = 0
+# ca = /etc/ocsinventory-agent/cacert.pem
+
+# Configuração de proxy (se necessário)
+{% if http_proxy %}
+proxy = {{ http_proxy }}
+{% endif %}

@@ -1,0 +1,84 @@
+---
+- name: Backup dos pacotes instalados (para rollback)
+  shell: rpm -qa > {{ backup_dir }}/installed_packages.before
+  when: enable_rollback | bool
+  changed_when: false
+
+- name: Instalar dependências necessárias (SUSE)
+  zypper:
+    name:
+      - dmidecode
+      - perl
+      - perl-XML-Simple
+      - perl-Compress-Zlib
+      - perl-Net-IP
+      - perl-libwww-perl
+      - perl-Digest-MD5
+      - perl-Data-UUID
+      - curl
+      - make
+      - gcc
+    state: present
+  register: deps_installed
+
+- name: Verificar se o agente OCS já está instalado
+  command: rpm -q ocsinventory-agent
+  register: ocs_installed
+  failed_when: false
+  changed_when: false
+
+- block:
+    - name: Criar diretório temporário para pacotes
+      file:
+        path: /tmp/ocs_packages
+        state: directory
+        mode: '0755'
+    
+    - name: Verificar se pacote local existe
+      stat: 
+        path: "{{ local_packages_path }}/suse/ocsinventory-agent.rpm"
+      register: local_pkg
+      delegate_to: localhost
+    
+    - name: Copiar pacote local se disponível
+      copy:
+        src: "{{ local_packages_path }}/suse/ocsinventory-agent.rpm"
+        dest: "/tmp/ocs_packages/ocsinventory-agent.rpm"
+      when: use_local_packages and local_pkg.stat.exists
+    
+    - name: Baixar pacote OCS Inventory se não houver cópia local
+      get_url:
+        url: https://github.com/OCSInventory-NG/UnixAgent/releases/download/v2.10.0/Ocsinventory-Unix-Agent-2.10.0.tar.gz
+        dest: "/tmp/ocs_packages/ocsinventory-agent.tar.gz"
+      when: not (use_local_packages and local_pkg.stat.exists)
+    
+    - name: Extrair arquivos (se baixou da internet)
+      unarchive:
+        src: "/tmp/ocs_packages/ocsinventory-agent.tar.gz"
+        dest: "/tmp/ocs_packages/"
+        remote_src: yes
+      when: not (use_local_packages and local_pkg.stat.exists)
+    
+    - name: Compilar e instalar (se baixou da internet)
+      shell: |
+        cd /tmp/ocs_packages/Ocsinventory-Unix-Agent-*
+        perl Makefile.PL
+        make
+        make install
+      args:
+        executable: /bin/bash
+      when: not (use_local_packages and local_pkg.stat.exists)
+    
+    - name: Instalar pacote (se local)
+      zypper:
+        name: "/tmp/ocs_packages/ocsinventory-agent.rpm"
+        state: present
+      when: use_local_packages and local_pkg.stat.exists
+  
+    - name: Obter versão do pacote instalado
+      shell: rpm -q --qf '%{VERSION}' ocsinventory-agent
+      register: package_version
+      changed_when: false
+      failed_when: false
+  
+  when: ocs_installed.rc != 0

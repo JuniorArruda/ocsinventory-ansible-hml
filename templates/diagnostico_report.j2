@@ -1,0 +1,15 @@
+## Relatório de Diagnóstico - {{ inventory_hostname }}
+Data: {{ ansible_date_time.date }}
+Hora: {{ ansible_date_time.time }}
+
+### Conectividade
+- Acesso ao servidor OCS (http://10.2.100.50/ocsreports): {{ 'OK' if ocs_server_check.stdout == '200' else 'FALHA (' + ocs_server_check.stdout + ')' }}
+- Acesso à Internet: {{ 'OK' if internet_check.rc == 0 else 'FALHA' }}
+
+### Sistema
+- Espaço em disco (/ utilizado): {{ disk_space.stdout }}%
+- Permissões de sudo para {{ ansible_user }}: {{ 'OK' if sudo_check.rc == 0 else 'FALHA' }}
+
+### Resumo
+Status geral: {{ 'OK' if diagnostico_ok else 'FALHA' }}
+{{ 'Pode prosseguir com a instalação.' if diagnostico_ok else 'Instalação não recomendada. Corrija os problemas acima.' }}

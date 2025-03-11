@@ -1,0 +1,61 @@
+---
+- name: Rollback da instalação do OCS Inventory Agent
+  hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Verificar se existe backup para rollback
+      stat:
+        path: "{{ backup_dir }}/installed_packages.before"
+      register: backup_exists
+      
+    - name: Falhar se não houver backup
+      fail:
+        msg: "Não há backup disponível para rollback em {{ inventory_hostname }}"
+      when: not backup_exists.stat.exists
+
+    - name: Parar serviços do OCS Inventory
+      service:
+        name: ocsinventory-agent
+        state: stopped
+      failed_when: false
+      
+    - name: Remover agente OCS Inventory (Debian/Ubuntu)
+      apt:
+        name: ocsinventory-agent
+        state: absent
+        purge: yes
+      when: ansible_os_family == "Debian"
+      failed_when: false
+      
+    - name: Remover agente OCS Inventory (RedHat/CentOS)
+      yum:
+        name: ocsinventory-agent
+        state: absent
+      when: ansible_os_family == "RedHat"
+      failed_when: false
+      
+    - name: Remover agente OCS Inventory (SUSE)
+      zypper:
+        name: ocsinventory-agent
+        state: absent
+      when: ansible_os_family == "Suse"
+      failed_when: false
+      
+    - name: Remover arquivos de configuração
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/ocsinventory
+        - /usr/local/bin/run-ocs-agent.sh
+        - /var/log/ocsinventory-agent
+      
+    - name: Remover entrada do cron
+      cron:
+        name: "OCS Inventory Agent"
+        state: absent
+      
+    - name: Registrar conclusão do rollback
+      debug:
+        msg: "Rollback concluído com sucesso em {{ inventory_hostname }}"
