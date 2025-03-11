@@ -23,3 +23,5 @@ https_proxy: ""
 # Configurações de Rollback
 backup_dir: "/var/backups/ocs_agent_rollback"
 enable_rollback: true
+
+ansible_become_pass: "{{ ansible_sudo_pass }}"

@@ -16,7 +16,7 @@ Este projeto automatiza a instalação e configuração do OCS Inventory Agent e
 .
 ├── ansible.cfg                  # Configuração do Ansible
 ├── inventory/                   # Inventário dinâmico
-│   ├── zabbix_inventory.py      # Script para inventário do Zabbix
+│   ├── inventory.py      # Script para inventário do Zabbix
 │   └── hosts.csv         # Arquivo CSV exportado do Zabbix
 ├── roles/                       # Roles do Ansible
 │   └── ocs_inventory/           # Role para OCS Inventory
@@ -54,14 +54,18 @@ Atualize o csv com inventário
 
 inventory/hosts.csv
 
+# Criar um arquivo criptografado para armazenar a senha
+ansible-vault create group_vars/all/vault.yml
+
+No editor que se abre, adicione:
+
+ansible_sudo_pass: "sua_senha_aqui"
+
 # Testar o inventário
-./inventory/zabbix_inventory.py --list
+./inventory/inventory.py --list
 
 Preparar os pacotes locais (se você optou por usar pacotes locais):
-files/packages/debian
-files/packages/redhat
-files/packages/suse
-etc...
+files/packages/debian, files/packages/redhat, files/packages/suse, etc...
 # Baixe e coloque os pacotes nos diretórios correspondentes
 
 ansible all -m ping
@@ -85,13 +89,3 @@ ansible all -m shell -a "/usr/local/bin/run-ocs-agent.sh"
 Em caso de problemas, executar o rollback:
 
 ansible-playbook rollback.yml
-Note que você precisará adicionar tags ao playbook principal para permitir a execução seletiva (como o --tags diagnose do passo 6). Você pode adicionar as tags necessárias ao arquivo playbook.yml da seguinte maneira:
-yamlCopy- name: Pre-flight checks
-  hosts: all
-  become: yes
-  gather_facts: no
-  tags: [always, diagnose]
-  tasks:
-    - name: Include diagnóstico
-      include_tasks: tasks/diagnostico.yml
-Esta sequência de comandos garante uma implementação controlada, permitindo que você verifique cada etapa antes de prosseguir para a próxima, reduzindo riscos durante a implementação.
