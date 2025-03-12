@@ -7,7 +7,7 @@ Este projeto automatiza a instalação e configuração do OCS Inventory Agent e
 - Ansible 2.9+
 - Python 3.6+
 - Acesso SSH às máquinas de destino
-- Usuário com permissões sudo (adm_far)
+- Usuário com permissões sudo
 - Exportação CSV dos hosts do Zabbix
 
 ## Estrutura do Projeto
