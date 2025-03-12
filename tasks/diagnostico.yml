@@ -39,6 +39,14 @@
                        sudo_check.rc == 0 and 
                        disk_space.stdout|int < 90 }}"
 
+- name: Criar diretório de relatório no host local
+  file:
+    path: /tmp/ocs_diagnostico
+    state: directory
+    mode: '0755'
+  delegate_to: localhost
+  run_once: true
+
 - name: Gerar relatório de diagnóstico
   template:
     src: templates/diagnostico_report.j2
