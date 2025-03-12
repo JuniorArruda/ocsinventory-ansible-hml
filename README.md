@@ -68,15 +68,15 @@ Preparar os pacotes locais (se você optou por usar pacotes locais):
 files/packages/debian, files/packages/redhat, files/packages/suse, etc...
 # Baixe e coloque os pacotes nos diretórios correspondentes
 
-ansible all -m ping
+ansible all -m ping --ask-vault-pass
 
 Executar apenas o diagnóstico para verificar se todas as máquinas estão prontas:
 
-ansible-playbook playbook.yml --tags diagnose
+ansible-playbook playbook.yml --tags diagnose --ask-vault-pass
 
 Executar o playbook completo para instalar e configurar o OCS Inventory Agent:
 
-ansible-playbook playbook.yml
+ansible-playbook playbook.yml --ask-vault-pass
 
 Verificar o status da instalação:
 

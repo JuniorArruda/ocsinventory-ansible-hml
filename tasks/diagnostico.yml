@@ -22,6 +22,9 @@
   register: disk_space
   failed_when: false
   changed_when: false
+
+- name: Coletar fatos
+  setup:
   
 - name: Verificar permissões de sudo
   shell: sudo -n true
@@ -29,17 +32,18 @@
   failed_when: false
   changed_when: false
   
-- name: Gerar relatório de diagnóstico
-  template:
-    src: templates/diagnostico_report.j2
-    dest: /tmp/ocs_diagnostico/{{ inventory_hostname }}_report.txt
-  delegate_to: localhost
-  
+
 - name: Definir status de diagnóstico
   set_fact:
     diagnostico_ok: "{{ ocs_server_check.stdout == '200' and 
                        sudo_check.rc == 0 and 
                        disk_space.stdout|int < 90 }}"
+
+- name: Gerar relatório de diagnóstico
+  template:
+    src: templates/diagnostico_report.j2
+    dest: /tmp/ocs_diagnostico/{{ inventory_hostname }}_report.txt
+  delegate_to: localhost
   
 - name: Exibir resultado do diagnóstico
   debug:
