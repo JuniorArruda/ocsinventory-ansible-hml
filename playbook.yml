@@ -37,3 +37,10 @@
       when: ocs_status.rc != 0
       delegate_to: localhost
       delegate_facts: true
+
+- hosts: all
+  become: yes
+  vars:
+    backup_dir: "/var/backups/ocsinventory"
+  roles:
+    - ocs_inventory
