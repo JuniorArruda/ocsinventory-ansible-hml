@@ -1,0 +1,4 @@
+*.log
+*.logs
+vault.yml
+vault.yaml
