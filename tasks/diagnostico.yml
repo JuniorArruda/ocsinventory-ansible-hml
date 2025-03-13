@@ -53,12 +53,11 @@
     state: directory
     mode: '0777'
 
-
 - name: Gerar relatório de diagnóstico
   template:
     src: templates/diagnostico_report.j2
     dest: /tmp/ocs_diagnostico/{{ inventory_hostname }}_report.txt
-  delegate_to: localhost
+#  delegate_to: localhost
   
 - name: Exibir resultado do diagnóstico
   debug:
