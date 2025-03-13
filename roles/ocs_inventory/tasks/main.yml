@@ -1,7 +1,8 @@
 ---
 - name: Criar diretório de backup para rollback
   file:
-    path: "{{ backup_dir }}"
+    #path: "{{ backup_dir }}"
+    path: /var/backups/ocs_agent_rollback
     state: directory
     mode: '0755'
 #  when: enable_rollback | bool
