@@ -4,7 +4,7 @@
     path: "{{ backup_dir }}"
     state: directory
     mode: '0755'
-  when: enable_rollback | bool
+#  when: enable_rollback | bool
   
 - name: Detectar a família da distribuição
   set_fact:
