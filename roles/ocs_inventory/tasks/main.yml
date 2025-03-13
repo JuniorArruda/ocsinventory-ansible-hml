@@ -60,6 +60,10 @@
   failed_when: false
   changed_when: first_run.rc == 0
 
+- name: Obter versão do OCS Agent
+  command: ocsinventory-agent --version
+  register: package_version
+
 - name: Registrar status para verificação posterior
   set_fact:
     ocs_agent_installed: true
