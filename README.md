@@ -55,7 +55,7 @@ Atualize o csv com inventário
 inventory/hosts.csv
 
 # Criar um arquivo criptografado para armazenar a senha
-ansible-vault create group_vars/all/vault.yml
+ansible-vault create inventory/group_vars/all/vault.yml
 
 No editor que se abre, adicione:
 

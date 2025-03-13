@@ -7,7 +7,7 @@ ocs_server_port: "80"
 ocs_server_path: "/ocsinventory"
 
 # Configurações do Agente
-ocs_agent_frequency: "24" # Frequência em horas (diária)
+ocs_agent_frequency: "24"
 ocs_agent_logfile: "/var/log/ocsinventory-agent/ocsinventory-agent.log"
 ocs_agent_loglevel: "info"
 ocs_agent_tag: ""
