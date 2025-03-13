@@ -1,0 +1,27 @@
+---
+# Configurações do Servidor OCS
+ocs_server_url: "http://10.2.100.50/ocsinventory/"
+ocs_server_protocol: "http"
+ocs_server_host: "10.2.100.50"
+ocs_server_port: "80"
+ocs_server_path: "/ocsinventory"
+
+# Configurações do Agente
+ocs_agent_frequency: "24" # Frequência em horas (diária)
+ocs_agent_logfile: "/var/log/ocsinventory-agent/ocsinventory-agent.log"
+ocs_agent_loglevel: "info"
+ocs_agent_tag: ""
+
+# Pacotes locais (para máquinas sem acesso à internet)
+use_local_packages: true
+local_packages_path: "{{ playbook_dir }}/files/packages"
+
+# Configuração de Proxy (se necessário)
+http_proxy: ""
+https_proxy: ""
+
+# Configurações de Rollback
+backup_dir: "/var/backups/ocs_agent_rollback"
+enable_rollback: true
+
+ansible_become_pass: "{{ ansible_sudo_pass }}"
