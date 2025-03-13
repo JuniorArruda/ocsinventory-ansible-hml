@@ -6,7 +6,7 @@
     mode: '0755'
   
 - name: Verificar acesso ao servidor OCS
-  shell: curl -s --connect-timeout 10 http://10.2.100.50/ocsreports -o /dev/null -w "%{http_code}"
+  shell: curl -s --connect-timeout 10 http://10.2.100.50/ocsreports/ -o /dev/null -w "%{http_code}"
   register: ocs_server_check
   failed_when: false
   changed_when: false

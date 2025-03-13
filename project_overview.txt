@@ -556,7 +556,7 @@ Data: {{ ansible_date_time.date }}
 Hora: {{ ansible_date_time.time }}
 
 ### Conectividade
-- Acesso ao servidor OCS (http://10.2.100.50/ocsreports): {{ 'OK' if ocs_server_check.stdout == '200' else 'FALHA (' + ocs_server_check.stdout + ')' }}
+- Acesso ao servidor OCS (http://10.2.100.50/ocsreports/): {{ 'OK' if ocs_server_check.stdout == '200' else 'FALHA (' + ocs_server_check.stdout + ')' }}
 - Acesso à Internet: {{ 'OK' if internet_check.rc == 0 else 'FALHA' }}
 
 ### Sistema
@@ -660,7 +660,7 @@ ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o ConnectTimeout=20
     mode: '0755'
   
 - name: Verificar acesso ao servidor OCS
-  shell: curl -s --connect-timeout 10 http://10.2.100.50/ocsreports -o /dev/null -w "%{http_code}"
+  shell: curl -s --connect-timeout 10 http://10.2.100.50/ocsreports/ -o /dev/null -w "%{http_code}"
   register: ocs_server_check
   failed_when: false
   changed_when: false
