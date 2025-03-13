@@ -1,4 +1,20 @@
 ---
+- name: Carregar variáveis globais
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Incluir variáveis do grupo all
+      include_vars:
+        file: inventory/group_vars/all.yml
+
+- name: Testar carregamento das variáveis
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Exibir variáveis do grupo all
+      debug:
+        var: hostvars[inventory_hostname]
+        
 - name: Rollback da instalação do OCS Inventory Agent
   hosts: all
   become: yes

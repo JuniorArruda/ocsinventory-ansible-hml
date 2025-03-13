@@ -80,11 +80,11 @@ ansible-playbook playbook.yml --ask-vault-pass
 
 Verificar o status da instalação:
 
-ansible all -m shell -a "ps aux | grep ocsinventory-agent | grep -v grep"
+ansible all -i inventory/inventory.py -m shell -a "ps aux | grep ocsinventory-agent | grep -v grep" --ask-vault-pass
 
 Se necessário, forçar a execução do inventário em todos os hosts:
 
-ansible all -m shell -a "/usr/local/bin/run-ocs-agent.sh"
+ansible all -i inventory/inventory.py -m shell -a "/usr/local/bin/run-ocs-agent.sh" --ask-vault-pass
 
 Em caso de problemas, executar o rollback:
 
