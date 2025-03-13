@@ -47,6 +47,13 @@
   delegate_to: localhost
   run_once: true
 
+- name: Criar diretório de diagnóstico
+  file:
+    path: /tmp/ocs_diagnostico
+    state: directory
+    mode: '0777'
+
+
 - name: Gerar relatório de diagnóstico
   template:
     src: templates/diagnostico_report.j2
