@@ -1,6 +1,6 @@
 ---
 # Configurações do Servidor OCS
-ocs_server_url: "http://10.2.100.50/ocsinventory"
+ocs_server_url: "http://10.2.100.50/ocsinventory/"
 ocs_server_protocol: "http"
 ocs_server_host: "10.2.100.50"
 ocs_server_port: "80"

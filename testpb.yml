@@ -1,0 +1,8 @@
+- hosts: all
+  become: yes
+  vars_files:
+    - group_vars/all.yml
+  tasks:
+    - name: Debug backup_dir
+      debug:
+        var: backup_dir
