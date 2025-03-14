@@ -27,7 +27,7 @@
 
 - name: Criar diretório de configuração
   file:
-    path: "/etc/ocsinventory/ocsinventory-agent.cfg.d"
+    path: "/etc/ocsinventory-agent/ocsinventory-agent.cfg.d"
     state: directory
     mode: '0755'
 
