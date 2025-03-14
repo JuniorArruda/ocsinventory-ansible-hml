@@ -1,4 +1,5 @@
-*.log
+\*.log
 *.logs
 vault.yml
 vault.yaml
+project_overview.txt
