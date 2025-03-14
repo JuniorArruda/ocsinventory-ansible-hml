@@ -1,75 +1,105 @@
-# Projeto Ansible para Instalação do OCS Inventory Agent
+# 📌 Projeto Ansible para Instalação do OCS Inventory Agent
 
-Este projeto automatiza a instalação e configuração do OCS Inventory Agent em múltiplas máquinas Linux, utilizando o Zabbix como fonte de hosts.
+Este projeto automatiza a instalação e configuração do **OCS Inventory Agent** em múltiplas máquinas Linux, utilizando o **Zabbix** como fonte de hosts.
 
-## Pré-requisitos
+---
 
-- Ansible 2.9+
-- Python 3.6+
-- Acesso SSH às máquinas de destino
-- Usuário com permissões sudo
-- Exportação CSV dos hosts do Zabbix
+## ✅ Pré-requisitos
 
-## Estrutura do Projeto
+- **Ansible** 2.9+
+- **Python** 3.6+
+- Acesso **SSH** às máquinas de destino
+- Usuário com permissões **sudo**
+- Exportação **CSV** dos hosts do Zabbix
 
-1. **Exportar hosts do Zabbix**:
-   - Acesse o Zabbix e exporte a lista de hosts
-   - Salve como CSV no formato esperado (veja exemplo em `inventory/hosts.csv`)
+---
 
-2. **Preparar pacotes locais (opcional)**:
-   - Para ambientes sem acesso à internet
+## 📂 Estrutura do Projeto
 
-SETUP
+1️⃣ **Exportar hosts do Zabbix**  
+   - Acesse o **Zabbix** e exporte a lista de hosts
+   - Salve como **CSV** no formato esperado (exemplo: `inventory/hosts.csv`)
 
-# Clonar repositório
+2️⃣ **Preparar pacotes locais (opcional)**  
+   - Para ambientes sem acesso à internet, coloque os pacotes em `files/packages/{distro}`
 
+---
+
+## 🚀 Setup e Configuração
+
+### 🔹 Clonar o repositório
+```bash
 git clone https://github.com/JuniorArruda/ocsinventory-ansible-hml.git
+cd ocsinventory-ansible-hml
+```
 
-# No arquivo ansible.conf altere o parâmetro abaixo substituindo linuxuser por um usuário sudoer do seu ambiente
+### 🔹 Configurar variáveis essenciais
+#### 1️⃣ **Definir usuário sudoer**
+Edite o arquivo `ansible.conf` e altere:
+```ini
+remote_user = linuxuser  # Substitua 'linuxuser' pelo usuário sudoer do seu ambiente
+```
 
-remote_user = linuxuser
-
-# No arquivo inventory/group_var/all.yml altere '10.2.100.50' para o ip do seu servidor OCS inventory nas duas linhas abaixo
-
+#### 2️⃣ **Configurar o servidor OCS Inventory**
+Edite o arquivo `inventory/group_vars/all.yml` e substitua `10.2.100.50` pelo IP do seu servidor OCS Inventory:
+```yaml
 ocs_server_url: "http://10.2.100.50/ocsinventory/"
 ocs_server_host: "10.2.100.50"
+```
 
-# Atualize o csv com inventário de acordo com seu ambiente e necessidade
+#### 3️⃣ **Atualizar o inventário de hosts**
+Edite `inventory/hosts.csv` conforme seu ambiente.
 
-inventory/hosts.csv
-
-# Criar um arquivo criptografado para armazenar a senha
+#### 4️⃣ **Criar um arquivo criptografado para armazenar senha**
+```bash
 ansible-vault create inventory/group_vars/all/vault.yml
-
+```
 No editor que se abre, adicione:
-
+```yaml
 ansible_sudo_pass: "sua_senha_aqui"
+```
 
-# Testar o inventário
-./inventory/inventory.py --list
+---
 
-Preparar os pacotes locais (se você optou por usar pacotes locais):
-files/packages/debian, files/packages/redhat, files/packages/suse, etc...
-# Baixe e coloque os pacotes nos diretórios correspondentes
+## 🔍 Testando e Executando
 
+### 🔹 Testar conexão com os hosts
+```bash
 ansible all -m ping --ask-vault-pass
+```
 
-Executar apenas o diagnóstico para verificar se todas as máquinas estão prontas:
-
+### 🔹 Diagnóstico inicial (verifica se os hosts estão prontos)
+```bash
 ansible-playbook playbook.yml --tags diagnose --ask-vault-pass
+```
 
-Executar o playbook completo para instalar e configurar o OCS Inventory Agent:
-
+### 🔹 Executar instalação completa do OCS Inventory Agent
+```bash
 ansible-playbook playbook.yml --ask-vault-pass
+```
 
-Verificar o status da instalação:
-
+### 🔹 Verificar status da instalação
+```bash
 ansible all -i inventory/inventory.py -m shell -a "ps aux | grep ocsinventory-agent | grep -v grep" --ask-vault-pass
+```
 
-Se necessário, forçar a execução do inventário em todos os hosts:
-
+### 🔹 Forçar execução do inventário nos hosts
+```bash
 ansible all -i inventory/inventory.py -m shell -a "/usr/local/bin/run-ocs-agent.sh" --ask-vault-pass
+```
 
-Em caso de problemas, executar o rollback:
-
+### 🔹 Rollback (caso necessário)
+```bash
 ansible-playbook rollback.yml
+```
+
+---
+
+## 📌 Notas Finais
+
+🚨 **OBS:** Tentamos centralizar as variáveis no arquivo `global.yml`, mas isso quebrou o projeto. Talvez tentemos novamente no futuro.
+
+📌 Este projeto facilita futuras implantações e configurações do OCS Inventory Agent, permitindo que usuários alterem apenas um único arquivo para apontar para seus servidores e definir o usuário sudoer.
+
+👨‍💻 Desenvolvido por [JuniorArruda](https://github.com/JuniorArruda)
+
