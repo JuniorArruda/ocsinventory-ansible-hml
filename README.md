@@ -12,28 +12,6 @@ Este projeto automatiza a instalação e configuração do OCS Inventory Agent e
 
 ## Estrutura do Projeto
 
-```
-.
-├── ansible.cfg                  # Configuração do Ansible
-├── inventory/                   # Inventário dinâmico
-│   ├── inventory.py      # Script para inventário do Zabbix
-│   └── hosts.csv         # Arquivo CSV exportado do Zabbix
-├── roles/                       # Roles do Ansible
-│   └── ocs_inventory/           # Role para OCS Inventory
-├── tasks/                       # Tarefas compartilhadas
-│   └── diagnostico.yml          # Script de diagnóstico
-├── templates/                   # Templates compartilhados
-│   └── diagnostico_report.j2    # Template de relatório
-├── files/                       # Arquivos estáticos
-│   └── packages/                # Pacotes para instalação local
-├── playbook.yml                 # Playbook principal
-├── rollback.yml                 # Playbook de rollback
-└── group_vars/                  # Variáveis globais
-    └── all.yml                  # Configurações globais
-```
-
-## Preparação do Ambiente
-
 1. **Exportar hosts do Zabbix**:
    - Acesse o Zabbix e exporte a lista de hosts
    - Salve como CSV no formato esperado (veja exemplo em `inventory/hosts.csv`)
@@ -41,16 +19,22 @@ Este projeto automatiza a instalação e configuração do OCS Inventory Agent e
 2. **Preparar pacotes locais (opcional)**:
    - Para ambientes sem acesso à internet
 
+SETUP
 
-
-
-   Para rodar este projeto Ansible em uma sequência coerente, siga os comandos abaixo. Esta sequência garante que tudo seja executado de forma organizada, desde a preparação do ambiente até a instalação do OCS Inventory Agent:
-
-Clonar repositório
+# Clonar repositório
 
 git clone https://github.com/JuniorArruda/ocsinventory-ansible-hml.git
 
-Atualize o csv com inventário
+# No arquivo ansible.conf altere o parâmetro abaixo substituindo linuxuser por um usuário sudoer do seu ambiente
+
+remote_user = linuxuser
+
+# No arquivo inventory/group_var/all.yml altere '10.2.100.50' para o ip do seu servidor OCS inventory nas duas linhas abaixo
+
+ocs_server_url: "http://10.2.100.50/ocsinventory/"
+ocs_server_host: "10.2.100.50"
+
+# Atualize o csv com inventário de acordo com seu ambiente e necessidade
 
 inventory/hosts.csv
 
