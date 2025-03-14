@@ -34,7 +34,8 @@
 - name: Configurar OCS Inventory Agent
   template:
     src: ocsinventory-agent.cfg.j2
-    dest: "/etc/ocsinventory/ocsinventory-agent.cfg.d/00-ocs-ansible.cfg"
+    #dest: "/etc/ocsinventory/ocsinventory-agent.cfg.d/00-ocs-ansible.cfg"
+    dest: "/etc/ocsinventory-agent/ocsinventory-agent.cfg"
     owner: root
     group: root
     mode: '0644'
