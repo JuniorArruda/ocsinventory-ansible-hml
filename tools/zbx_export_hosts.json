@@ -1,0 +1,502 @@
+{
+    "zabbix_export": {
+        "version": "6.0",
+        "date": "2025-03-20T19:04:30Z",
+        "groups": [
+            {
+                "uuid": "f2481361f99448eea617b7b1d4765566",
+                "name": "Discovered hosts"
+            },
+            {
+                "uuid": "dc579cd7a1a34222933f24f52a68bcd8",
+                "name": "Linux servers"
+            },
+            {
+                "uuid": "846977d1dfed4968bc5f8bdb363285bc",
+                "name": "Templates/Operating systems"
+            },
+            {
+                "uuid": "025799e1eccd4e32a8d61786b3d9e92d",
+                "name": "Windows servers"
+            }
+        ],
+        "hosts": [
+            {
+                "host": "azitromicina",
+                "name": "azitromicina",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.2.31",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "BRAHMA",
+                "name": "BRAHMA",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.1.17.4",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "bromazepam",
+                "name": "bromazepam",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.2",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "ciclosporina",
+                "name": "ciclosporina",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.65",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "clobutinol",
+                "name": "clobutinol",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.24",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "efavirenz",
+                "name": "efavirenz",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.16.22",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "FINASTERIDA",
+                "name": "FINASTERIDA",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.7.3",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "Linux azitromicina 5.15.0-87-generic _97-Ubuntu SMP Mon Oct 2 21_09_21 UTC 2023 x86_64",
+                "name": "Linux azitromicina 5.15.0-87-generic _97-Ubuntu SMP Mon Oct 2 21_09_21 UTC 2023 x86_64",
+                "status": "DISABLED",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.2.31",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "Linux cabergolina 3.10.0-1062.1.2.el7.x86_64 _1 SMP Mon Sep 30 14_19_46 UTC 2019 x86_64",
+                "name": "Linux cabergolina 3.10.0-1062.1.2.el7.x86_64 _1 SMP Mon Sep 30 14_19_46 UTC 2019 x86_64",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.2.19",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "Linux dhcp 2.6.32-696.16.1.el6.i686 _1 SMP Wed Nov 15 16_16_47 UTC 2017 i686 i686 i386 GNU_Linux",
+                "name": "Linux dhcp 2.6.32-696.16.1.el6.i686 _1 SMP Wed Nov 15 16_16_47 UTC 2017 i686 i686 i386 GNU_Linux",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.32.3",
+                        "dns": "ctm-dhcp.far.fiocruz.br",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "miconazol",
+                "name": "miconazol",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.25",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "minoxidil",
+                "name": "minoxidil",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.35",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "mometasona",
+                "name": "mometasona",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.2.4",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "nirvana",
+                "name": "nirvana",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.209.15",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "ocs",
+                "name": "ocs",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.80",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "osetalmivir",
+                "name": "osetalmivir",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.16.11",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "pentoxifilina",
+                "name": "pentoxifilina",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.26",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "prednisolona",
+                "name": "prednisolona",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.3.25",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "propofol",
+                "name": "propofol",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Discovered hosts"
+                    },
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.2.2",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "VALSARTANA",
+                "name": "VALSARTANA",
+                "templates": [
+                    {
+                        "name": "Windows by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    },
+                    {
+                        "name": "Templates/Operating systems"
+                    },
+                    {
+                        "name": "Windows servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.2.33",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            },
+            {
+                "host": "VOIP0800",
+                "name": "VOIP0800",
+                "templates": [
+                    {
+                        "name": "Linux by Zabbix agent"
+                    }
+                ],
+                "groups": [
+                    {
+                        "name": "Linux servers"
+                    }
+                ],
+                "interfaces": [
+                    {
+                        "ip": "10.2.164.31",
+                        "interface_ref": "if1"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            }
+        ]
+    }
+}

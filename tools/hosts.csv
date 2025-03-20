@@ -1,0 +1,21 @@
+host,ip,description,os
+azitromicina,10.2.2.31,azitromicina,Linux by Zabbix agent
+BRAHMA,10.1.17.4,BRAHMA,Linux by Zabbix agent
+bromazepam,10.2.3.2,bromazepam,Linux by Zabbix agent
+ciclosporina,10.2.3.65,ciclosporina,Linux by Zabbix agent
+clobutinol,10.2.3.24,clobutinol,Linux by Zabbix agent
+efavirenz,10.2.16.22,efavirenz,Linux by Zabbix agent
+FINASTERIDA,10.2.7.3,FINASTERIDA,Linux by Zabbix agent
+cabergolina,10.2.2.19,Linux cabergolina,Linux by Zabbix agent
+Linux,10.2.32.3,Linux dhcp,Linux by Zabbix agent
+miconazol,10.2.3.25,miconazol,Linux by Zabbix agent
+minoxidil,10.2.3.35,minoxidil,Linux by Zabbix agent
+mometasona,10.2.2.4,mometasona,Linux by Zabbix agent
+nirvana,10.2.209.15,nirvana,Linux by Zabbix agent
+ocs,10.2.3.80,ocs,Linux by Zabbix agent
+osetalmivir,10.2.16.11,osetalmivir,Linux by Zabbix agent
+pentoxifilina,10.2.3.26,pentoxifilina,Linux by Zabbix agent
+prednisolona,10.2.3.25,prednisolona,Linux by Zabbix agent
+propofol,10.2.2.2,propofol,Linux by Zabbix agent
+VALSARTANA,10.2.2.33,VALSARTANA,Windows by Zabbix agent
+VOIP0800,10.2.164.31,VOIP0800,Linux by Zabbix agent
